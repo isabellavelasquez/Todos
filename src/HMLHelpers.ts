@@ -1,5 +1,5 @@
 import { Task } from "./models/Task";
-import { storedTasks } from "./localStorage";
+import { loadTasks, storedTasks } from "./localStorage";
 
 export const createHTML = (task: Task) => {
     const li = document.createElement("li");
@@ -12,12 +12,14 @@ export const createHTML = (task: Task) => {
     paragraph.innerHTML = task.text;
     deleteButton.innerHTML = "x";
   
-    if (task.isDone) {
-      document.getElementById("done-list")?.appendChild(li);
-      checkbox.checked = true;
-      } else {
+    if (task.isDone === false) {
         document.getElementById("to-do-list")?.appendChild(li);
-      }
+    } 
+    else {
+        document.getElementById("done-list")?.appendChild(li);
+        checkbox.checked = true;
+    }
+
 
     li.append(checkbox, paragraph, deleteButton);
   
@@ -39,14 +41,18 @@ export const createHTML = (task: Task) => {
 };
 
 export const renderTasks = () => {
-  const a = (document.getElementById("to-do-list") as HTMLElement);
-  const b = (document.getElementById("done-list") as HTMLElement);
+    console.log("rendering tasks");
+    const a = (document.getElementById("to-do-list") as HTMLElement);
+    const b = (document.getElementById("done-list") as HTMLElement);
     if (a && b) {
       a.innerHTML = "";
       b.innerHTML = "";
     }
-    localStorage.getItem("Task");
+    console.log("cleared tasks")
+    loadTasks();
+    console.log(storedTasks);
     storedTasks.forEach(task => {
+        console.log("creating hmtl for each task");
         createHTML(task); 
     });
 }
