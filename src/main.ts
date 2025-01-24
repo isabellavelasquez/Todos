@@ -1,3 +1,4 @@
+import "./style.scss"
 import { Task } from "./models/Task";
 import { addTask } from "./localStorage";
 import { createHTML, renderTasks } from "./HMLHelpers";
@@ -12,14 +13,5 @@ document.getElementById("formy")?.addEventListener("submit", (e) => {
 
   (document.getElementById("formy") as HTMLFormElement).reset();
 });
-
-// document.getElementById("sortButton").addEventListener("click", () => {
-//   doneList.innerHTML = "";
-//   toDoList.innerHTML = "";
-//   toDoArray.sort((a, b) => a.text.localeCompare(b.text));
-//   localStorage.setItem("Task", JSON.stringify(toDoArray));
-
-//   renderToDoList();
-// });
 
 renderTasks();

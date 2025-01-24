@@ -1,29 +1,32 @@
 import { Task } from "./models/Task";
-import { loadTasks, storedTasks } from "./localStorage";
+import { saveTask, storedTasks } from "./localStorage";
 
 export const createHTML = (task: Task) => {
-    const li = document.createElement("li");
+    const taskCard = document.createElement("li");
     const checkbox = document.createElement("input");
     const paragraph = document.createElement("p");
     const deleteButton = document.createElement("button");
-  
-    li.draggable = true;
+
+    taskCard.className = "task-card";
+    taskCard.draggable = true;
     checkbox.type = "checkbox";
+    checkbox.checked = task.isDone;
     paragraph.innerHTML = task.text;
     deleteButton.innerHTML = "x";
   
     if (task.isDone === false) {
-        document.getElementById("to-do-list")?.appendChild(li);
+        document.getElementById("to-do-list")?.appendChild(taskCard);
     } 
     else {
-        document.getElementById("done-list")?.appendChild(li);
-        checkbox.checked = true;
+        document.getElementById("done-list")?.appendChild(taskCard);
     }
 
 
-    li.append(checkbox, paragraph, deleteButton);
+    taskCard.append(checkbox, paragraph, deleteButton);
   
     checkbox.addEventListener("click", () => {
+      task.isDone = checkbox.checked;
+      saveTask();
       renderTasks();
     });
 
@@ -42,14 +45,18 @@ export const createHTML = (task: Task) => {
 
 export const renderTasks = () => {
     console.log("rendering tasks");
-    const a = (document.getElementById("to-do-list") as HTMLElement);
-    const b = (document.getElementById("done-list") as HTMLElement);
-    if (a && b) {
-      a.innerHTML = "";
-      b.innerHTML = "";
+    const toDoList = document.getElementById("to-do-list");
+    const doneList = document.getElementById("done-list");
+
+    if (!toDoList || !doneList) {
+      console.error("Error: One or more required elements are missing.");
+      return;
     }
+
+    toDoList.innerHTML = "";
+    doneList.innerHTML = "";
+
     console.log("cleared tasks")
-    loadTasks();
     console.log(storedTasks);
     storedTasks.forEach(task => {
         console.log("creating hmtl for each task");

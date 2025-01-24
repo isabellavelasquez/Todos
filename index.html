@@ -6,23 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
     <script type="module" src="/src/main.ts" defer></script>
+    
   </head>
   <body>
     <div id="formcontainer">
       <form id="formy">
         <input type="text" id="textField" autocomplete="off" placeholder="Add task"/>
       </form>
+    </div>
       <button id="sortButton">Sort A-Ö</button>
     <main>
-      <div id="to-do-container">
-        <h1> To do </h1>
-        <ul id="to-do-list"></ul>
-      </div>
-      <div id="done-container">
-        <h1>
-          Done
-        </h1>
-        <ul id="done-list"></ul>
+      <div id="lists-container">
+        <section class="to-do-container">
+          <h1> To do </h1>
+          <ul id="to-do-list"></ul>
+        </section>
+        <section class="to-do-container">
+          <h1>
+            Done
+          </h1>
+          <ul id="done-list"></ul>
+        </section>
       </div>
     </main>
   </body>

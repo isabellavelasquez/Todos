@@ -1,10 +1,10 @@
 import { Task } from "./models/Task";
 
-export let storedTasks: Task[] = new Array();
+export let storedTasks: Task[] = JSON.parse(localStorage.getItem("Task") || "[]");
 
-export const loadTasks = () =>  {
-    storedTasks = new Array(JSON.parse(localStorage.getItem("Task") || "[]"));
-}
+// export const loadTasks = () =>  {
+//     storedTasks = new Array(JSON.parse(localStorage.getItem("Task")));
+// }
 
 export const saveTask = () => {
     localStorage.setItem("Task", JSON.stringify(storedTasks));
